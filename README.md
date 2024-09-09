@@ -1,2 +1,2 @@
-# finalproject
-Tech Ex Cloud Final Project Team Repo
+# FinalProject
+Final project team repo

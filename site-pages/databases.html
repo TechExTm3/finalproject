@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display and Download JSON/YAML File</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            font-family: monospace;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px; /* Adjust margin for spacing */
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px; /* Add margin below buttons */
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>AWS Databases JSON/YAML File Download</h1>
+    
+    <!-- Buttons to load different files -->
+    <button onclick="loadFile('/data/databases.json')">JSON</button>
+    <button onclick="loadFile('/data/databases.yaml')">YAML</button>
+    <button onclick="downloadFile()">Download</button>
+    
+    <!-- Display file contents in textarea -->
+    <textarea id="fileContents" readonly placeholder="File content will appear here..."></textarea>
+    
+    <!-- Clear button -->
+    <button onclick="clearText()">Clear</button>
+</div>
+
+<script>
+    let currentFileName = ''; // To store the current file's name
+
+    // Function to load the JSON or YAML file from the server
+    function loadFile(filePath) {
+        fetch(filePath)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Use text() for both JSON and YAML files
+        })
+        .then(data => {
+            document.getElementById('fileContents').textContent = data;
+            currentFileName = filePath.split('/').pop(); // Store the file name for download
+        })
+        .catch(error => {
+            document.getElementById('fileContents').textContent = 'Error loading file: ' + error;
+        });
+    }
+
+    // Function to download the current content from the text area
+    function downloadFile() {
+        const content = document.getElementById('fileContents').value;
+        
+        if (!content) {
+            alert('No content to download!');
+            return;
+        }
+
+        // Create a blob object from the text content
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+
+        // Create a temporary <a> element to trigger the download
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = currentFileName || 'file.txt'; // Will download with the correct file extension (.json or .yaml)
+        document.body.appendChild(a);
+        a.click(); // Trigger the download
+        document.body.removeChild(a); // Remove the <a> element after download
+    }
+
+    // Function to clear the text area
+    function clearText() {
+        document.getElementById('fileContents').textContent = '';
+        currentFileName = ''; // Clear the file name as well
+    }
+</script>
+
+</body>
+</html>

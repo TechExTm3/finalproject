@@ -1,0 +1,21 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "A simple CloudFormation template to create an S3 bucket and an EC2 instance.",
+    "Resources": {
+      "MyS3Bucket": {
+        "Type": "AWS::S3::Bucket",
+        "Properties": {
+          "BucketName": "my-cloudformation-bucket-12345"
+        }
+      },
+      "MyEC2Instance": {
+        "Type": "AWS::EC2::Instance",
+        "Properties": {
+          "InstanceType": "t2.micro",
+          "ImageId": "ami-0c55b159cbfafe1f0",
+          "KeyName": "my-key-pair"
+        }
+      }
+    }
+  }
+  
