@@ -1,0 +1,14 @@
+MyDB:
+  Type: AWS::RDS::DBInstance
+  Properties:
+    DBSecurityGroups:
+    - Ref: MyDbSecurityByEC2SecurityGroup
+    - Ref: MyDbSecurityByCIDRIPGroup
+    AllocatedStorage: '5'
+    DBInstanceClass: db.t2.small
+    Engine: MySQL
+    MasterUsername: MyName
+    ManageMasterUserPassword: true
+    MasterUserSecret:
+      KmsKeyId: !Ref KMSKey
+  DeletionPolicy: Snapshot
