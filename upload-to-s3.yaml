@@ -1,0 +1,38 @@
+# -------- CAPSTONE PROJECT-------#
+
+# -------- WORK IN PROGRESS-------#
+
+# Workflow to push updates to S3.
+
+# Name of the workflow
+name: Deploy updates to S3
+
+# Trigger the workflow on push events to the main branch
+on:
+  push:
+    branches: [bill]  
+
+# ---------- UPDATED BELOW ----------#
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Specify the operating system for the job to run on.
+
+    steps:
+    - name: Checkout repository  # Checkout the repository code
+      uses: actions/checkout@master  # Use the actions/checkout action
+
+    - name: Use s3-sync-action
+      uses: jakejarvis/s3-sync-action@master  # Uses code on github to deploy to S3 "https://github.com/jakejarvis/s3-sync-action"
+      with:
+        args: --acl public-read --follow-symlinks --delete
+
+      env:
+        AWS_S3_BUCKET: ${{secrets.BILL_S3_BUCKET}}
+        AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+        AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+        AWS_REGION: 'us-west-2'
+        #SOURCE_DIR: 'website' ## optional - defaults to entire repository
+
+    - name: Echo the status
+      # Simple echo
+      run: echo "Update Completed"
