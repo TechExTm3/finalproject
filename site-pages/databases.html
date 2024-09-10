@@ -1,9 +1,37 @@
 <!DOCTYPE html>
+<html>
+<body>
+<center>
+<h2>AWS RDS JSON/YAML Download</h2>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</p>
+
+
 <html lang="en">
+    
 <head>
+<style>
+p {
+  background-image: url('https://digitalcloud.training/wp-content/uploads/2022/01/AWS-Database-400x200.jpg');
+}
+
+
+</style>
+    <center>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display and Download JSON/YAML File</title>
+	<title>Display and Download JSON/YAML </title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,7 +52,7 @@
         }
         button {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #6495ED;
             color: white;
             border: none;
             border-radius: 5px;
@@ -33,14 +61,13 @@
             margin-bottom: 10px; /* Add margin below buttons */
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #F1C40F;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>AWS Databases JSON/YAML File Download</h1>
     
     <!-- Buttons to load different files -->
     <button onclick="loadFile('/data/databases.json')">JSON</button>
@@ -48,7 +75,7 @@
     <button onclick="downloadFile()">Download</button>
     
     <!-- Display file contents in textarea -->
-    <textarea id="fileContents" readonly placeholder="File content will appear here..."></textarea>
+    <textarea id="fileContents" readonly placeholder="Templates will appear here...."></textarea>
     
     <!-- Clear button -->
     <button onclick="clearText()">Clear</button>
@@ -106,3 +133,4 @@
 
 </body>
 </html>
+
