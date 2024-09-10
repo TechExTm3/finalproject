@@ -17,19 +17,27 @@
             padding: 20px;
         }
 
-        /* Style for logo */
-        .logo-container {
-            text-align: center;
-            margin: 50px 0;
+        /* Style for header and dropdown */
+        .w3-center {
+            margin-top: 50px;
         }
 
-        .logo-container img {
-            width: 150px;
-            height: auto;
+        .dropdown-btn {
+            margin-top: 20px;
+            display: inline-block;
         }
 
         .w3-button {
             margin-bottom: 10px;
+        }
+
+        .logo-text {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .sub-text {
+            font-size: 20px;
         }
     </style>
 </head>
@@ -57,11 +65,11 @@
         </div>
     </div>
 
-    <!-- Header with logo -->
+    <!-- Header with Defense Industries Inc. name -->
     <header class="w3-display-container w3-grayscale-min" id="home">
         <div class="w3-center">
-            <span class="w3-text-black" style="font-size:40px">Defense Industries Inc.</span>
-            <p class="w3-text-black" style="font-size:20px">AWS Templates for Deployment</p>
+            <span class="w3-text-black logo-text">Defense Industries Inc.</span>
+            <p class="w3-text-black sub-text">AWS Templates for Deployment</p>
         </div>
     </header>
 
@@ -71,19 +79,41 @@
             <div class="w3-content" style="max-width:700px">
                 <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">ABOUT THIS TOOL</span></h5>
                 <p>This tool provides AWS CloudFormation templates and other deployment resources for various cloud architectures. Choose from simple cloud architectures, databases, Docker, Kubernetes, and more.
-                  Check out our options here or the nav bar above!
+                    Check out our options here or in the nav bar above!
                 </p>
             </div>
         </div>
     </div>
 
-     
-  </div>
+    <!-- Dropdown menu for template selection -->
+    <div class="w3-center">
+        <div class="w3-dropdown-click dropdown-btn">
+            <button class="w3-button w3-black" onclick="toggleDropdown()">Select Template</button>
+            <div id="dropdownMenu" class="w3-dropdown-content w3-bar-block w3-border">
+                <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/simplecloud.html" class="w3-bar-item w3-button">Simple Cloud Architecture</a>
+                <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/databases.html" class="w3-bar-item w3-button">Databases</a>
+                <a href="http://thumay-test.s3-website-us-west-2.amazonaws.com/site-pages/docker.html" class="w3-bar-item w3-button">Docker</a>
+                <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/kubernetes.html" class="w3-bar-item w3-button">Kubernetes</a>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="w3-center w3-light-grey w3-padding-48 w3-large">
         <p>Site designed by Ctrl + Alt + Elite</p>
     </footer>
+
+    <!-- Script for dropdown menu -->
+    <script>
+        function toggleDropdown() {
+            var x = document.getElementById("dropdownMenu");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
 
 </body>
 
