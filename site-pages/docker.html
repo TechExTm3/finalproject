@@ -47,17 +47,23 @@
 
 <!-- Navigation bar -->
 <div class="w3-top">
-  <div class="w3-row w3-padding w3-black">
-    <div class="w3-col s3">
-      <a href="#" class="w3-button w3-block w3-black">HOME</a>
+    <div class="w3-row w3-padding w3-black">
+        <div class="w3-col s2">
+            <a href="#" class="w3-button w3-block w3-black">HOME</a>
+        </div>
+        <div class="w3-col s2">
+            <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/simplecloud.html" class="w3-button w3-block w3-black">SIMPLECLOUD</a>
+        </div>
+        <div class="w3-col s2">
+            <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/databases.html" class="w3-button w3-block w3-black">DATABASES</a>
+        </div>
+        <div class="w3-col s2">
+            <a href="http://thumay-test.s3-website-us-west-2.amazonaws.com/site-pages/docker.html" class="w3-button w3-block w3-black">DOCKER</a>
+        </div>
+        <div class="w3-col s2">
+            <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/kubernetes.html" class="w3-button w3-block w3-black">KUBERNETES</a>
+        </div>
     </div>
-    <div class="w3-col s3">
-      <a href="#about" class="w3-button w3-block w3-black">ABOUT</a>
-    </div>
-    <div class="w3-col s3">
-      <a href="#home" class="w3-button w3-block w3-black">DOCKER TEMPLATES</a>
-    </div>
-  </div>
 </div>
 
 <!-- Header with Docker Logo -->
@@ -93,7 +99,8 @@
       
       <!-- Display file contents in textarea -->
       <textarea id="fileContents" readonly placeholder="File content will appear here..."></textarea>
-       <p> These files help you set up a multi-container Docker environment with two services: a Flask web application and a Redis cache. </p>
+       <p> Here’s a basic AWS CloudFormation template that sets up an Amazon ECS cluster with a Docker container 
+        running on an EC2 instance. This template creates an ECS cluster, an EC2 instance with the ECS agent, and a simple ECS service running a Docker container.</p>
       <!-- Clear button -->
       <button class="w3-button w3-black" onclick="clearText()">Clear</button>
     </div>
