@@ -1,0 +1,89 @@
+# a basic example of a CloudFormation template that sets up an EKS cluster. This example includes the creation of a VPC, subnets, and an EKS cluster.
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation Template to create a Kubernetes cluster using EKS
+
+Resources:
+
+  # Create VPC
+  MyVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: "10.0.0.0/16"
+      Tags:
+        - Key: Name
+          Value: MyVPC
+
+  # Create public subnets
+  MySubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: "10.0.1.0/24"
+      AvailabilityZone: "us-west-2a"
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: MySubnet1
+
+  MySubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: "10.0.2.0/24"
+      AvailabilityZone: "us-west-2b"
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: MySubnet2
+
+  # Create an Internet Gateway
+  MyInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: MyInternetGateway
+
+  # Attach Internet Gateway to VPC
+  MyVPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref MyVPC
+      InternetGatewayId: !Ref MyInternetGateway
+
+  # Create EKS Cluster Role
+  MyEKSClusterRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: MyEKSClusterRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: eks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+        - arn:aws:iam::aws:policy/AmazonEKSServicePolicy
+
+  # Create EKS Cluster
+  MyEKSCluster:
+    Type: AWS::EKS::Cluster
+    Properties:
+      Name: MyEKSCluster
+      RoleArn: !GetAtt MyEKSClusterRole.Arn
+      ResourcesVpcConfig:
+        SubnetIds:
+          - !Ref MySubnet1
+          - !Ref MySubnet2
+        EndpointPublicAccess: true
+        EndpointPrivateAccess: false
+
+Outputs:
+  ClusterName:
+    Description: "Name of the EKS cluster"
+    Value: !Ref MyEKSCluster
+  ClusterEndpoint:
+    Description: "Endpoint URL for the EKS cluster"
+    Value: !GetAtt MyEKSCluster.Endpoint
