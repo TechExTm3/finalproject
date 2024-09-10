@@ -10,7 +10,7 @@ name: Deploy updates to S3
 # Trigger the workflow on push events to the main branch
 on:
   push:
-    branches: [main]  
+    branches: [Anya2]  
 
 # ---------- UPDATED BELOW ----------#
 jobs:
@@ -27,7 +27,7 @@ jobs:
         args: --acl public-read --follow-symlinks --delete
 
       env:
-        AWS_S3_BUCKET: ${{secrets.MAIN_S3_BUCKET}}
+        AWS_S3_BUCKET: ${{secrets.anya.s3.bucket}}
         AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
         AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         AWS_REGION: 'us-west-2'
