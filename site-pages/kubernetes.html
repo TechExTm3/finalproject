@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display and Download JSON/YAML File</title>
+    <title>Display and Download JSON/YAML</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,7 +24,7 @@
         }
         button {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #6495ED;
             color: white;
             border: none;
             border-radius: 5px;
@@ -33,76 +33,86 @@
             margin-bottom: 10px; /* Add margin below buttons */
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #F1C40F;
+        }
+        p {
+            background-image: url('https://anyas-test.s3.us-west-2.amazonaws.com/pictures/Kubernetes_New.webp');
+            background-position: center; /* Center the image */
+            background-size: 75% 75%; /* Shrink the image to 75% of its original size */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            background-attachment: fixed; /* Optional: Fix the background image in place */
+            height: 400px; /* Set a height for the <p> element to ensure the image is visible */
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>AWS Kubernetes JSON/YAML File Download</h1>
+    <center><h2>AWS Kubernetes JSON/YAML Download</h2></center>
     
-    <!-- Buttons to load different files -->
-    <button onclick="loadFile('/data/kubernetes.json')">JSON</button>
-    <button onclick="loadFile('/data/kubernetes.yaml')">YAML</button>
-    <button onclick="downloadFile()">Download</button>
-    
-    <!-- Display file contents in textarea -->
-    <textarea id="fileContents" readonly placeholder="File content will appear here..."></textarea>
-    
-    <!-- Clear button -->
-    <button onclick="clearText()">Clear</button>
-</div>
+    <p>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </p>
 
-<script>
-    let currentFileName = ''; // To store the current file's name
-
-    // Function to load the JSON or YAML file from the server
-    function loadFile(filePath) {
-        fetch(filePath)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text(); // Use text() for both JSON and YAML files
-        })
-        .then(data => {
-            document.getElementById('fileContents').textContent = data;
-            currentFileName = filePath.split('/').pop(); // Store the file name for download
-        })
-        .catch(error => {
-            document.getElementById('fileContents').textContent = 'Error loading file: ' + error;
-        });
-    }
-
-    // Function to download the current content from the text area
-    function downloadFile() {
-        const content = document.getElementById('fileContents').value;
+    <div class="container">
+        <!-- Buttons to load different files -->
+        <button onclick="loadFile('/data/databases.json')">JSON</button>
+        <button onclick="loadFile('/data/databases.yaml')">YAML</button>
+        <button onclick="downloadFile()">Download</button>
         
-        if (!content) {
-            alert('No content to download!');
-            return;
+        <!-- Display file contents in textarea -->
+        <textarea id="fileContents" readonly placeholder="Templates will appear here...."></textarea>
+        
+        <!-- Clear button -->
+        <button onclick="clearText()">Clear</button>
+    </div>
+
+    <script>
+        let currentFileName = ''; // To store the current file's name
+
+        // Function to load the JSON or YAML file from the server
+        function loadFile(filePath) {
+            fetch(filePath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text(); // Use text() for both JSON and YAML files
+            })
+            .then(data => {
+                document.getElementById('fileContents').textContent = data;
+                currentFileName = filePath.split('/').pop(); // Store the file name for download
+            })
+            .catch(error => {
+                document.getElementById('fileContents').textContent = 'Error loading file: ' + error;
+            });
         }
 
-        // Create a blob object from the text content
-        const blob = new Blob([content], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
+        // Function to download the current content from the text area
+        function downloadFile() {
+            const content = document.getElementById('fileContents').value;
+            
+            if (!content) {
+                alert('No content to download!');
+                return;
+            }
 
-        // Create a temporary <a> element to trigger the download
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = currentFileName || 'file.txt'; // Will download with the correct file extension (.json or .yaml)
-        document.body.appendChild(a);
-        a.click(); // Trigger the download
-        document.body.removeChild(a); // Remove the <a> element after download
-    }
+            // Create a blob object from the text content
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
 
-    // Function to clear the text area
-    function clearText() {
-        document.getElementById('fileContents').textContent = '';
-        currentFileName = ''; // Clear the file name as well
-    }
-</script>
+            // Create a temporary <a> element to trigger the download
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = currentFileName || 'file.txt'; // Will download with the correct file extension (.json or .yaml)
+            document.body.appendChild(a);
+            a.click(); // Trigger the download
+            document.body.removeChild(a); // Remove the <a> element after download
+        }
 
+        // Function to clear the text area
+        function clearText() {
+            document.getElementById('fileContents').textContent = '';
+            currentFileName = ''; // Clear the file name as well
+        }
+    </script>
 </body>
 </html>
