@@ -3,56 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display and Download JSON/YAML File</title>
+    <title>Docker File Manager</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+        body, html {
+            height: 100%;
+            font-family: "Inconsolata", sans-serif;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
+
         textarea {
             width: 100%;
             height: 200px;
-            padding: 10px;
-            font-family: monospace;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin-bottom: 10px; /* Adjust margin for spacing */
+            resize: none;
+            background-color: #f9f9f9;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 10px;
-            margin-bottom: 10px; /* Add margin below buttons */
+
+        .w3-container {
+            padding: 20px;
         }
-        button:hover {
-            background-color: #0056b3;
+
+        .w3-button {
+            margin-bottom: 10px;
+        }
+
+        /* Style for Docker logo */
+        .logo-container {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .logo-container img {
+            width: 150px;
+            height: auto;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Docker JSON/YAML File Download</h1>
-    
-    <!-- Buttons to load different files -->
-    <button onclick="loadFile('/data/docker.json')">JSON</button>
-    <button onclick="loadFile('/data/docker.yaml')">YAML</button>
-    <button onclick="downloadFile()">Download</button>
-    
-    <!-- Display file contents in textarea -->
-    <textarea id="fileContents" readonly placeholder="File content will appear here..."></textarea>
-    
-    <!-- Clear button -->
-    <button onclick="clearText()">Clear</button>
+<!-- Navigation bar -->
+<div class="w3-top">
+    <div class="w3-row w3-padding w3-black">
+        <div class="w3-col s2">
+            <a href="#" class="w3-button w3-block w3-black">HOME</a>
+        </div>
+        <div class="w3-col s2">
+            <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/simplecloud.html" class="w3-button w3-block w3-black">SIMPLECLOUD</a>
+        </div>
+        <div class="w3-col s2">
+            <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/databases.html" class="w3-button w3-block w3-black">DATABASES</a>
+        </div>
+        <div class="w3-col s2">
+            <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/docker.html" class="w3-button w3-block w3-black">DOCKER</a>
+        </div>
+        <div class="w3-col s2">
+            <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/kubernetes.html" class="w3-button w3-block w3-black">KUBERNETES</a>
+        </div>
+    </div>
 </div>
+
+<!-- Header with Docker Logo -->
+<header class="w3-display-container w3-grayscale-min" id="home">
+  <div class="logo-container">
+    <img src="https://www.docker.com/wp-content/uploads/2022/03/vertical-logo-monochromatic.png" alt="Docker Logo">
+  </div>
+  <div class="w3-center">
+    <span class="w3-text-black" style="font-size:40px">Docker Templates</span>
+  </div>
+</header>
+
+<!-- Main content -->
+<div class="w3-sand w3-grayscale w3-large">
+  
+  <!-- About section -->
+  <div class="w3-container" id="about">
+    <div class="w3-content" style="max-width:700px">
+      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">ABOUT THIS TOOL</span></h5>
+      <p>This tool allows you to manage Docker-related JSON and YAML files by viewing and downloading them directly. It simplifies the process of handling configuration files, making Docker management easier.</p>
+    </div>
+  </div>
+
+  <!-- File manager section -->
+  <div class="w3-container" id="fileManager">
+    <div class="w3-content" style="max-width:500px">
+      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">DOCKER TEMPLATES</span></h5>
+      
+      <!-- Buttons to load different files -->
+      <button class="w3-button w3-center w3-black" onclick="loadFile('/data/docker.json')">Load JSON</button>
+      <button class="w3-button w3-center w3-black" onclick="loadFile('/data/docker.yaml')">Load YAML</button>
+      <button class="w3-button w3-center w3-black" onclick="downloadFile()">Download</button>
+      
+      <!-- Display file contents in textarea -->
+      <textarea id="fileContents" readonly placeholder="File content will appear here..."></textarea>
+       <p> Here’s a basic AWS CloudFormation template that sets up an Amazon ECS cluster with a Docker container 
+        running on an EC2 instance. This template creates an ECS cluster, an EC2 instance with the ECS agent, and a simple ECS service running a Docker container.</p>
+      <!-- Clear button -->
+      <button class="w3-button w3-black" onclick="clearText()">Clear</button>
+    </div>
+  </div>
+
+<!-- Footer -->
+<footer class="w3-center w3-light-grey w3-padding-48 w3-large">
+  <p>Designed by Thumay</p>
+</footer>
 
 <script>
     let currentFileName = ''; // To store the current file's name
