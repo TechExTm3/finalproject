@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
     <style>
+        header {
+          padding: 50px;
+        }
+        
         body, html {
             height: 100%;
             font-family: "Inconsolata", sans-serif;
@@ -84,6 +88,18 @@
             </div>
         </div>
     </div>
+    
+    <!-- Request Form -->
+<div class="w3-center w3-padding-64">
+    <form id="requestForm">
+        <label for="request">Submit a Request:</label><br>
+        <textarea id="request" name="request" rows="4" cols="50" placeholder="Type your request here..."></textarea><br><br>
+        <button class="w3-button w3-black" type="submit">Submit</button>
+    </form>
+    <p id="successMessage" style="color:green; display:none;">Request Submitted Successfully!</p>
+    <p id="errorMessage" style="color:red; display:none;">Failed to Submit Request.</p>
+</div>
+
 
     <!-- Dropdown menu for template selection -->
     <div class="w3-center">
