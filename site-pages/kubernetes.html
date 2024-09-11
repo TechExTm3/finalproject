@@ -1,69 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display and Download JSON/YAML</title>
+    <title>AWS Kubernetes</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+        body, html {
+            height: 100%;
+            font-family: "Inconsolata", sans-serif;
+            margin: 0;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
+
         textarea {
             width: 100%;
             height: 200px;
-            padding: 10px;
-            font-family: monospace;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin-bottom: 10px; /* Adjust margin for spacing */
+            resize: none;
+            background-color: #f9f9f9;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #6495ED;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 10px;
-            margin-bottom: 10px; /* Add margin below buttons */
+
+        .logo-container {
+            text-align: center;
+            margin: 50px 0;
         }
-        button:hover {
-            background-color: #F1C40F;
+
+        .logo-container img {
+            width: 150px;
+            height: auto;
         }
-        p {
-            background-image: url('https://anyas-test.s3.us-west-2.amazonaws.com/pictures/Kubernetes_New.webp');
-            background-position: center; /* Center the image */
-            background-size: 75% 75%; /* Shrink the image to 75% of its original size */
-            background-repeat: no-repeat; /* Prevent the image from repeating */
-            background-attachment: fixed; /* Optional: Fix the background image in place */
-            height: 400px; /* Set a height for the <p> element to ensure the image is visible */
+
+        .w3-container {
+            padding: 20px;
         }
     </style>
 </head>
-<body>
-    <center><h2>AWS Kubernetes JSON/YAML Download</h2></center>
-    
-    <p>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    </p>
 
-    <div class="container">
-        <!-- Buttons to load different files -->
-        <button onclick="loadFile('/data/databases.json')">JSON</button>
-        <button onclick="loadFile('/data/databases.yaml')">YAML</button>
-        <button onclick="downloadFile()">Download</button>
-        
-        <!-- Display file contents in textarea -->
-        <textarea id="fileContents" readonly placeholder="Templates will appear here...."></textarea>
-        
-        <!-- Clear button -->
-        <button onclick="clearText()">Clear</button>
+<body>
+
+    <!-- Navigation bar -->
+    <div class="w3-top">
+        <div class="w3-row w3-padding w3-black">
+            <div class="w3-col s2">
+                <a href="#" class="w3-button w3-block w3-black">HOME</a>
+            </div>
+            <div class="w3-col s2">
+                <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/simplecloud.html" class="w3-button w3-block w3-black">SIMPLECLOUD</a>
+            </div>
+            <div class="w3-col s2">
+                <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/databases.html" class="w3-button w3-block w3-black">DATABASES</a>
+            </div>
+            <div class="w3-col s2">
+                <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/docker.html" class="w3-button w3-block w3-black">DOCKER</a>
+            </div>
+            <div class="w3-col s2">
+                <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/kubernetes.html" class="w3-button w3-block w3-black">KUBERNETES</a>
+            </div>
+        </div>
     </div>
+
+    <!-- Header with Kubernetes Logo -->
+    <header class="w3-display-container w3-grayscale-min" id="home">
+        <div class="logo-container">
+            <img src="https://anyas-test.s3.us-west-2.amazonaws.com/pictures/Kubernetes_New.webp">
+        </div>
+        <div class="w3-center">
+            <span class="w3-text-black" style="font-size:40px">Kubernetes</span>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <div class="w3-sand w3-grayscale w3-large">
+        <div class="w3-container" id="fileManager">
+            <div class="w3-content" style="max-width:700px">
+                <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">AWS Kubernetes JSON/YAML File Download</span></h5>
+                
+                <!-- Buttons to load different files -->
+                <button class="w3-button w3-black w3-margin-bottom" onclick="loadFile('/data/kubernetes.json')">Load JSON</button>
+                <button class="w3-button w3-black w3-margin-bottom" onclick="loadFile('/data/kubernetes.yaml')">Load YAML</button>
+                <button class="w3-button w3-black w3-margin-bottom" onclick="downloadFile()">Download</button>
+                
+                <!-- Display file contents in textarea -->
+                <textarea id="fileContents" readonly placeholder="File content will appear here..."></textarea>
+                
+                <!-- Description -->
+                <p>Here’s a basic AWS CloudFormation template that sets up an EKS cluster. This template includes the creation of a VPC, subnets, and an EKS cluster.</p>
+                
+                <!-- Clear button -->
+                <button class="w3-button w3-black" onclick="clearText()">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w3-center w3-light-grey w3-padding-48 w3-large">
+        <p>Designed by Anya (but mostly by Thumay)</p>
+    </footer>
 
     <script>
         let currentFileName = ''; // To store the current file's name
@@ -71,25 +108,25 @@
         // Function to load the JSON or YAML file from the server
         function loadFile(filePath) {
             fetch(filePath)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text(); // Use text() for both JSON and YAML files
-            })
-            .then(data => {
-                document.getElementById('fileContents').textContent = data;
-                currentFileName = filePath.split('/').pop(); // Store the file name for download
-            })
-            .catch(error => {
-                document.getElementById('fileContents').textContent = 'Error loading file: ' + error;
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Use text() for both JSON and YAML files
+                })
+                .then(data => {
+                    document.getElementById('fileContents').textContent = data;
+                    currentFileName = filePath.split('/').pop(); // Store the file name for download
+                })
+                .catch(error => {
+                    document.getElementById('fileContents').textContent = 'Error loading file: ' + error;
+                });
         }
 
         // Function to download the current content from the text area
         function downloadFile() {
             const content = document.getElementById('fileContents').value;
-            
+
             if (!content) {
                 alert('No content to download!');
                 return;
@@ -114,5 +151,7 @@
             currentFileName = ''; // Clear the file name as well
         }
     </script>
+
 </body>
+
 </html>
