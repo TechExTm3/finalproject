@@ -3,8 +3,8 @@
  "Properties" : {
      "DBSecurityGroups" : [
         {"Ref" : "MyDbSecurityByEC2SecurityGroup"}, {"Ref" : "MyDbSecurityByCIDRIPGroup"} ],
-     "AllocatedStorage" : "5",
-     "DBInstanceClass" : "db.t2.small",
+     "AllocatedStorage" : "200",
+     "DBInstanceClass" : "db.m5.large",
      "Engine" : "MySQL",
      "MasterUsername" : "MyName",
      "ManageMasterUserPassword" : true,
