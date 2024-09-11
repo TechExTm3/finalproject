@@ -126,12 +126,21 @@
         }
     </script>
 
-    <!-- JavaScript for sending the request to API Gateway -->
     <script>
         function sendTemplateRequest() {
             const userInput = document.getElementById('templateRequestBox').value;
-           
-            fetch('https://zwqz0ik8l9.execute-api.us-west-2.amazonaws.com/prod', {
+            
+            // Check if the user input is empty
+            if (!userInput) {
+                alert('Please describe your template request.');
+                return;
+            }
+
+            // Replace this URL with your actual API Gateway URL
+            const apiUrl = 'https://zwqz0ik8l9.execute-api.us-west-2.amazonaws.com/prod/request-template';
+
+            // Send the POST request to the Lambda function via API Gateway
+            fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -140,13 +149,18 @@
             })
             .then(response => response.json())
             .then(data => {
+                // Display success message to user
                 alert('Template request sent successfully!');
+                console.log('Success:', data); // Optional: For debugging purposes
             })
             .catch((error) => {
-                console.error('Error:', error);
+                // Display error message to user
+                alert('Error sending template request. Please try again.');
+                console.error('Error:', error); // Log the error for debugging
             });
         }
     </script>
+
 
 
 </body>
