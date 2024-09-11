@@ -130,6 +130,32 @@
             }
         }
     </script>
+    <script>
+    document.getElementById('requestForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent the form from refreshing the page
+
+        const requestContent = document.getElementById('request').value;
+        const apiUrl = 'https://your-api-gateway-url/submit-request'; // API Gateway URL
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ request: requestContent })
+            });
+
+            if (response.ok) {
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('errorMessage').style.display = 'none';
+            } else {
+                throw new Error('Failed to submit request');
+            }
+        } catch (error) {
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+    });
+</script>
 
 </body>
 
