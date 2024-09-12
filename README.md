@@ -1,10 +1,8 @@
 Project Outline Statement Template (Project Intention)
 
-Team Name: Ctrl+Alt+Elite
+Team Name: **Ctrl+Alt+Elite**
 
 Team Roles:
-
-AWS account holder, Scribe, Facilitator
 - Role 1: AWS Account Holder - Brett
 - Role 2: Scribe - Thumay
 - Role 3: Facilitator 1 - Anya
