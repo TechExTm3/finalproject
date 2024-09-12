@@ -88,18 +88,6 @@
             </div>
         </div>
     </div>
-    
-    <!-- Request Form -->
-<div class="w3-center w3-padding-64">
-    <form id="requestForm">
-        <label for="request">Submit a Request:</label><br>
-        <textarea id="request" name="request" rows="4" cols="50" placeholder="Type your request here..."></textarea><br><br>
-        <button class="w3-button w3-black" type="submit">Submit</button>
-    </form>
-    <p id="successMessage" style="color:green; display:none;">Request Submitted Successfully!</p>
-    <p id="errorMessage" style="color:red; display:none;">Failed to Submit Request.</p>
-</div>
-
 
     <!-- Dropdown menu for template selection -->
     <div class="w3-center">
@@ -137,32 +125,6 @@
             }
         }
     </script>
-    <script>
-    document.getElementById('requestForm').addEventListener('submit', async function(event) {
-        event.preventDefault(); // Prevent the form from refreshing the page
-
-        const requestContent = document.getElementById('request').value;
-        const apiUrl = 'https://your-api-gateway-url/submit-request'; // API Gateway URL
-
-        try {
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ request: requestContent })
-            });
-
-            if (response.ok) {
-                document.getElementById('successMessage').style.display = 'block';
-                document.getElementById('errorMessage').style.display = 'none';
-            } else {
-                throw new Error('Failed to submit request');
-            }
-        } catch (error) {
-            document.getElementById('errorMessage').style.display = 'block';
-            document.getElementById('successMessage').style.display = 'none';
-        }
-    });
-</script>
 
     <script>
         function sendTemplateRequest() {
