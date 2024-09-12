@@ -47,7 +47,7 @@
     <div class="w3-top">
         <div class="w3-row w3-padding w3-black">
             <div class="w3-col s2">
-                <a href="#" class="w3-button w3-block w3-black">HOME</a>
+                <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/index.html" class="w3-button w3-block w3-black">HOME</a>
             </div>
             <div class="w3-col s2">
                 <a href="https://defense-industries-inc.s3.us-west-2.amazonaws.com/site-pages/simplecloud.html" class="w3-button w3-block w3-black">SIMPLECLOUD</a>
@@ -78,7 +78,88 @@
     <div class="w3-sand w3-grayscale w3-large">
         <div class="w3-container" id="fileManager">
             <div class="w3-content" style="max-width:700px">
-                <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">AWS Kubernetes JSON/YAML File Download</span></h5>
+                <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">ABOUT THIS TOOL</span></h5>
+                <p>This tool allows you to view a simple AWS Kubernetes template through JSON and YAML files by viewing and downloading them directly. It simplifies the process of handling configuration files, making AWS management easier.</p>
+    </div>
+  </div>
+
+  <!-- File manager section -->
+  <div class="w3-container" id="fileManager">
+    <div class="w3-content" style="max-width:700px">
+      <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">VIEW/DOWNLOAD</span></h5>
+      
+      <!-- Buttons to load different files -->
+      <button class="w3-button w3-center w3-black" onclick="loadFile('/data/simplecloud.json')">Load JSON</button>
+      <button class="w3-button w3-center w3-black" onclick="loadFile('/data/simplecloud.yaml')">Load YAML</button>
+      <button class="w3-button w3-center w3-black" onclick="downloadFile()">Download</button>
+      
+      <!-- Display file contents in textarea -->
+      <textarea id="fileContents" readonly placeholder="File content will appear here..."></textarea>
+       <p> Here’s a basic AWS CloudFormation template that sets up an EC2 instance with an S3 bucket. You can clear the text area via the clear button below.
+        </p>
+      <!-- Clear button -->
+      <button class="w3-button w3-black" onclick="clearText()">Clear</button>
+    </div>
+  </div>
+
+<!-- Footer -->
+<footer class="w3-center w3-light-grey w3-padding-48 w3-large">
+  <p>Designed by Brett</p>
+</footer>
+
+<script>
+    let currentFileName = ''; // To store the current file's name
+
+    // Function to load the JSON or YAML file from the server
+    function loadFile(filePath) {
+        fetch(filePath)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Use text() for both JSON and YAML files
+        })
+        .then(data => {
+            document.getElementById('fileContents').textContent = data;
+            currentFileName = filePath.split('/').pop(); // Store the file name for download
+        })
+        .catch(error => {
+            document.getElementById('fileContents').textContent = 'Error loading file: ' + error;
+        });
+    }
+
+    // Function to download the current content from the text area
+    function downloadFile() {
+        const content = document.getElementById('fileContents').value;
+        
+        if (!content) {
+            alert('No content to download!');
+            return;
+        }
+
+        // Create a blob object from the text content
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+
+        // Create a temporary <a> element to trigger the download
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = currentFileName || 'file.txt'; // Will download with the correct file extension (.json or .yaml)
+        document.body.appendChild(a);
+        a.click(); // Trigger the download
+        document.body.removeChild(a); // Remove the <a> element after download
+    }
+
+    // Function to clear the text area
+    function clearText() {
+        document.getElementById('fileContents').textContent = '';
+        currentFileName = ''; // Clear the file name as well
+    }
+</script>
+
+</body>
+</html>
+
                 
                 <!-- Buttons to load different files -->
                 <button class="w3-button w3-black w3-margin-bottom" onclick="loadFile('/data/kubernetes.json')">Load JSON</button>
