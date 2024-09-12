@@ -5,11 +5,11 @@ Team Name: Ctrl+Alt+Elite
 Team Roles:
 
 AWS account holder, Scribe, Facilitator
-Role 1: AWS Account Holder - Brett
-Role 2: Scribe - Thumay
-Role 3: Facilitator 1 - Anya
-Role 4: Facilitator 2 - Yassir
-Role 5: Quality Assurance - Bill
+- Role 1: AWS Account Holder - Brett
+- Role 2: Scribe - Thumay
+- Role 3: Facilitator 1 - Anya
+- Role 4: Facilitator 2 - Yassir
+- Role 5: Quality Assurance - Bill
 
 Project Intentions/Objective:
 
